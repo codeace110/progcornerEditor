@@ -27,7 +27,7 @@
             color: #fff;
         }
 
-        .dark-theme #youtube {
+        .dark-theme #video-container {
             background-color: #333;
         }
 
@@ -119,8 +119,9 @@
         }
 
         /****************youtube iframe************************/
+        
 
-        #youtube {
+        /* #youtube {
             margin-top: 5px;
             width: 100%;
             height: 639px;
@@ -129,7 +130,7 @@
             overflow: hidden;
             display: flex;
 
-        }
+        } */
 
         .editor-container {
             width: 100%;
