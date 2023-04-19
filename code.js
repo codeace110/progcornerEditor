@@ -35,7 +35,6 @@ function runCode() {
           "Check the data types of your variables and make sure that they are used correctly in your code.";
         break;
       default:
-        errorMessage += "Check your code for any errors and try again.";
     }
     var p = document.createElement("p");
     p.innerText = errorMessage;
@@ -70,16 +69,4 @@ window.addEventListener("resize", function () {
   outputContainer.style.height = window.innerHeight - 120 + "px";
 });
 
-// Initialize the editor when the DOM is ready
-document.addEventListener("DOMContentLoaded", function (event) {
-  initEditor();
-});
-
-// Get log and output buttons
-var logButton = document.getElementById("log-button");
-var outputButton = document.getElementById("output-button");
-
-// Add click event listeners to buttons
-logButton.addEventListener("click", toggleOutput);
-outputButton.addEventListener("click", toggleOutput);
 

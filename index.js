@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-    initEditor();
-});
 
 
 //end of load Dom content
