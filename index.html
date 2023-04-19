@@ -50,6 +50,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
+                
 
             </div>
             <div class="col">
@@ -82,7 +83,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/edit/closebrackets.min.js"></script>
     <script src="code.js"></script>
     <script src="index.js"></script>
+
     <script>
+
         const firebaseConfig = {
             apiKey: "AIzaSyASHm4DHXPNiem2nl25_Ax8jHHXRSVYC7A",
             authDomain: "programmerscornerph-2f1f9.firebaseapp.com",
@@ -93,49 +96,53 @@
             appId: "1:1090743775951:web:fb6d67af58b66fbfd8bdba",
             measurementId: "G-BT751SCDZ2"
         };
-        const app = initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
+
         // Initialize Firestore
-        var db = firebase.firestore();
-    </script>
-    <script>
+        const db = firebase.firestore();
+
         function searchVideos(event) {
-            event.preventDefault(); // Prevent the form from submitting
+            event.preventDefault(); // prevent default form submission
 
-            var searchInput = document.getElementById("search-input").value;
-            var videoContainer = document.getElementById("video-container");
+            const searchKeyword = document.getElementById('search-input').value;
 
-            // Query Firestore for links containing the search keyword
-            db.collection("videos")
-                .where("keyword", "==", searchInput)
-                .get()
-                .then((querySnapshot) => {
-                    if (!querySnapshot.empty) {
-                        // Get the first document from the query result
-                        var doc = querySnapshot.docs[0];
+            // Get a reference to the videos collection
+            const videosRef = db.collection('videos').doc('javascript');
 
-                        // Update the iframe with the video link
-                        var iframe = document.createElement("iframe");
-                        iframe.src = doc.data().value;
-                        iframe.width = "790";
-                        iframe.height = "444";
-                        iframe.frameborder = "0";
-                        iframe.allow =
-                            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-                        iframe.allowfullscreen = true;
-
-                        videoContainer.innerHTML = ""; // Clear the previous video (if any)
-                        videoContainer.appendChild(iframe); // Add the new video
+            // Retrieve the data from Firestore
+            videosRef.get().then((doc) => {
+                if (doc.exists) {
+                    // Get the video URL based on the search keyword
+                    const videoUrl = doc.data()[searchKeyword.toLowerCase()];
+                    if (videoUrl) {
+                        // Update the video container with the retrieved URL
+                        const videoContainer = document.getElementById('video-container');
+                        videoContainer.innerHTML = `
+                        <iframe width="790" height="444" src="${videoUrl}"
+                            title="${searchKeyword}" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    `;
                     } else {
-                        videoContainer.innerHTML = "No videos found.";
+                        // If the search keyword is not found, display an error message
+                        const outputContainer = document.getElementById('output-container');
+                        outputContainer.innerText = `No video found for "${searchKeyword}".`;
                     }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    videoContainer.innerHTML = "An error occurred while searching for videos.";
-                });
+                } else {
+                    // If the videos collection does not exist, display an error message
+                    const outputContainer = document.getElementById('output-container');
+                    outputContainer.innerText = 'Unable to retrieve video data.';
+                }
+            }).catch((error) => {
+                // If an error occurs, display the error message
+                const outputContainer = document.getElementById('output-container');
+                outputContainer.innerText = error.message;
+            });
         }
 
+
     </script>
+
 
 </body>
 
