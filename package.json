@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "firebase": "^9.20.0",
-    "natural": "^6.2.0"
+    "firebase": "^9.20.0"
   }
 }
