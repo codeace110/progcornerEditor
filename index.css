@@ -119,6 +119,18 @@
         }
 
         /****************youtube iframe************************/
+        /****************youtube data api took lot of data and has limit*/
+        .pagination button {
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            font-size: 1rem;
+          }
+          .pagination button:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+          }
 
         
 
