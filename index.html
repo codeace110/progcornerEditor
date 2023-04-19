@@ -13,6 +13,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/theme/dracula.min.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
 
 </head>
 
@@ -42,8 +45,9 @@
                 </form>
 
                 <div id="video-container">
-                    <iframe id="youtube" src="" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    <iframe width="790" height="444" src="https://www.youtube.com/embed/W6NZfCO5SIk"
+                        title="JavaScript Tutorial for Beginners: Learn JavaScript in 1 Hour" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
 
@@ -69,6 +73,9 @@
 
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/edit/matchbrackets.min.js"></script>
@@ -76,61 +83,60 @@
     <script src="code.js"></script>
     <script src="index.js"></script>
     <script>
-        // Cache DOM elements
-        var searchInput = document.getElementById('search-input');
-        var searchButton = document.querySelector('button[type="submit"]');
-        var videoContainer = document.getElementById('video-container');
-        var youtubeIframe = document.getElementById('youtube');
-
-        // Attach event listeners
-        searchButton.addEventListener('click', searchVideos);
-        searchInput.addEventListener('keydown', function (event) {
-            if (event.keyCode === 13) {
-                searchVideos();
-            }
-        });
-
-        // Load default video
-        youtubeIframe.src = 'https://www.youtube.com/embed/' + videoId;
-
-        // Define search function
-        function searchVideos(event) {
-            if (event) {
-                event.preventDefault();
-            }
-
-            var apiKey = 'AIzaSyASHm4DHXPNiem2nl25_Ax8jHHXRSVYC7A'; // replace with your API key
-            var keyword = searchInput.value.trim();
-            var url = 'https://www.googleapis.com/youtube/v3/search?key=' + apiKey + '&q=' + keyword + '&part=snippet&type=video&maxResults=5';
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    var videos = response.items;
-                    if (videos.length > 0) {
-                        var videoHTML = '';
-                        for (var i = 0; i < videos.length; i++) {
-                            var videoId = videos[i].id.videoId;
-                            var title = videos[i].snippet.title;
-                            var description = videos[i].snippet.description;
-                            videoHTML += '<h3>' + title + '</h3><p>' + description + '</p><iframe src="https://www.youtube.com/embed/' + videoId + '"></iframe>';
-                        }
-                        videoContainer.innerHTML = videoHTML;
-                    } else {
-                        // Display error message if no videos found
-                        videoContainer.innerHTML = '<p>No videos found</p>';
-                    }
-
-
-                } else {
-                    console.log('Error: ' + xhr.status);
-                }
-            };
-            xhr.send();
-        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyASHm4DHXPNiem2nl25_Ax8jHHXRSVYC7A",
+            authDomain: "programmerscornerph-2f1f9.firebaseapp.com",
+            databaseURL: "https://programmerscornerph-2f1f9-default-rtdb.firebaseio.com",
+            projectId: "programmerscornerph-2f1f9",
+            storageBucket: "programmerscornerph-2f1f9.appspot.com",
+            messagingSenderId: "1090743775951",
+            appId: "1:1090743775951:web:fb6d67af58b66fbfd8bdba",
+            measurementId: "G-BT751SCDZ2"
+        };
+        const app = initializeApp(firebaseConfig);
+        // Initialize Firestore
+        var db = firebase.firestore();
     </script>
+    <script>
+        function searchVideos(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            var searchInput = document.getElementById("search-input").value;
+            var videoContainer = document.getElementById("video-container");
+
+            // Query Firestore for links containing the search keyword
+            db.collection("videos")
+                .where("keyword", "==", searchInput)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        // Get the first document from the query result
+                        var doc = querySnapshot.docs[0];
+
+                        // Update the iframe with the video link
+                        var iframe = document.createElement("iframe");
+                        iframe.src = doc.data().value;
+                        iframe.width = "790";
+                        iframe.height = "444";
+                        iframe.frameborder = "0";
+                        iframe.allow =
+                            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                        iframe.allowfullscreen = true;
+
+                        videoContainer.innerHTML = ""; // Clear the previous video (if any)
+                        videoContainer.appendChild(iframe); // Add the new video
+                    } else {
+                        videoContainer.innerHTML = "No videos found.";
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    videoContainer.innerHTML = "An error occurred while searching for videos.";
+                });
+        }
+
+    </script>
+
 </body>
 
 </html>
