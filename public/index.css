@@ -49,6 +49,9 @@
           }
 
         /************ code mirror*************** */
+        #search-input{
+            background-color: #d5e3eb;
+        }
         .CodeMirror {
             padding-top: 20px;
             padding-right: 10px;
