@@ -1,45 +1,52 @@
         /*********** dark and light mode**************** */
+
+          
+    
         /* Dark Theme */
-        .dark-theme {
-            background-color: #222;
-            color: #fff;
-        }
-
-        .dark-theme .top-container {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .dark-theme .btn {
-            background-color: #0077b3;
-            color: #fff;
-        }
-
-        .dark-theme h1,
-        .dark-theme h2,
-        .dark-theme p,
-        .dark-theme label {
-            color: #fff;
-        }
-
-        .dark-theme .nav-link {
-            background-color: #3e8e41;
-            color: #fff;
-        }
-
-        .dark-theme #video-container {
-            background-color: #333;
-        }
-
-        .dark-theme #editor {
-            background-color: #222;
-            color: #fff;
-        }
-
-        .dark-theme #output-container {
-            background-color: white;
-            color: #fff;
-        }
+        .theme-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+           
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+          }
+          
+          .theme-container:hover {
+            opacity: 0.8;
+          }
+          
+          .shadow-dark {
+            background-color: #23282c;
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1),
+            0px 4px 6px -2px rgba(0,0,0,0.05);
+            }
+          
+          .shadow-light {
+            box-shadow: 7px 7px 15px -10px #bbcfda, -4px -4px 13px #ffffff,
+              inset 7px 7px 3px rgba(209, 217, 230, 0.35),
+              inset -11px -11px 3px rgba(255, 255, 255, 0.3)
+          }
+          
+          @keyframes change {
+            0% {
+              transform: scale(1);
+            }
+          
+            100% {
+              transform: scale(1.4);
+            }
+          }
+          
+          .change {
+            animation-name: change;
+            animation-duration: 1s;
+            animation-direction: alternate;
+          }
 
         /************ code mirror*************** */
         .CodeMirror {
@@ -56,7 +63,7 @@
             margin: 0;
             padding: 20px;
             font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            background-color: #e6e6e6e7;
         }
 
         h1,
@@ -209,12 +216,13 @@
         }
 
         /* #log-container, */
+        #output-iframe,
         #output-container {
             padding: 40px;
             width: 100%;
             height: 100%;
             border: none;
-            background-color: #4C3A51;
+            background-color: #050d18ea;
             font-family: monospace;
             font-size: 16px;
             color: white;
@@ -277,3 +285,46 @@
         button[type="submit"]:hover {
             background-color: #0066cc;
         }
+
+        /* ---------footer-------*/
+
+        footer {
+            background-color: #23282c;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 20px;
+          }
+          
+          .footer-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+          
+          .footer-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+          }
+          
+          .footer-contact a {
+            margin: 0 10px;
+            color: #ffffff;
+            font-size: 20px;
+          }
+          
+          .footer-contact p {
+            margin: 0 10px;
+          }
+          
+          .fab, .far, .fas {
+            font-size: 20px;
+          }
+          
+          .fa-phone {
+            transform: rotate(90deg);
+            margin-right: 5px;
+          }
+          

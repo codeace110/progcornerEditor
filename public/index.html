@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodebreakers</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Figtree:400,600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-beta1/css/bootstrap.min.css"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-1e6XT7EpzEGLslJvHI/qDz1LTkwAx7hKjPs8XVldd0veLy2QDfgJGzW+u54wufwOaCJAzsTndZs2X3PjxEJxug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/theme/dracula.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+
+</head>
+
+<body>
+    <div class="top-container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="theme-container shadow-dark">
+                    <img id="theme-icon"    src="https://www.uplooder.net/img/image/2/addf703a24a12d030968858e0879b11e/moon.svg" alt="ERR">
+                    
+                  </div>
+                  <sup id="supp" style="margin: 10px;">Dark</sup>
+            </div>
+            <div style="margin-left: 20px;" class="col">
+                <h1>Welcome to Programmers Corner PH</h1>
+            </div>
+        </div>
+        <!-- <button id="theme-toggle" class="themeBTN">Toggle Theme</button> -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Code Editor</h2>
+                <p>Enter your code in the editor below, then click the "Run" button to see the output.</p>
+
+            </div>
+            <div class="col">
+                <h2>Output</h2>
+                <p>The output of your code will appear in the area below.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form onsubmit="return searchVideos(event);">
+                    <input type="text" id="search-input" placeholder="Type: javascript  to search videos">
+                    <button type="submit">Search</button>
+                </form>
+
+                <div id="video-container">
+                    <iframe width="100%" height="100%" src=""
+                        title="JavaScript Tutorial for Beginners: Learn JavaScript in 1 Hour" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+                <div id="pagination" style="display: flex; justify-content: center;">
+                    <a href="#">Previous</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">Next</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="output-container">
+                    <div id="output-container">Output will Display here!</div>
+                    <iframe id="output-iframe"   style="display: none;">Output will Display here!</iframe>
+
+                </div>
+                <div class="container text-center">
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <button onclick="runCode()" class="btn">
+                                <h1>RUN</h1>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <textarea id="editor"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+          <p>&copy; 2023 ProgrammerPH. All rights reserved.</p>
+          <div class="footer-contact">
+            <a href="https://web.facebook.com/profile.php?id=100091544576808" target="email"><i class="fab fa-facebook-f"></i></a>
+            <p href="mailto:jomarneri16@gmail.com"><i class="far fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <p><i class="fas fa-phone"></i> +63 9923 343 394
+            </p>
+          </div>
+        </div>
+      </footer>      
+      <script src="https://kit.fontawesome.com/4ed105ab1f.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/edit/closebrackets.min.js"></script>
+    <script src="code.js"></script>
+    <script src="index.js"></script>
+    <script src="videos.js"></script>
+
+</body>
+</html>
