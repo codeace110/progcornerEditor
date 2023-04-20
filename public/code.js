@@ -49,6 +49,10 @@ function runCode() {
   // Restore console.log()
   console.log = oldLog;
 }
+
+
+
+
 var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
   lineNumbers: true,
   matchBrackets: true,
